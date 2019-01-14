@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+<style>
+	//div { border: solid 1px black;}
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="container bg-light">
+
+	<div class="mx-auto mw-100" style="width: 400px;">
+		{% if error %}
+			<div class="alert alert-danger">
+				{{ error }}
+				<a href=''>Avez vous oubliez votre mot de passe?</a>
+			</div>
+		{% endif %}
+		
+		{{ form_start(form) }}
+			{{ form_row(form.email) }}
+			{{ form_row(form.nickname) }}
+			{{ form_row(form.plainPassword.first) }}
+			{{ form_row(form.plainPassword.second) }}
+			{{ form_row(form.firstname) }}
+			{{ form_row(form.lastname) }}
+			{{ form_row(form.birthday) }}
+			{{ form_row(form.bio) }}
+			{{ form_row(form.avatar) }}
+			{{ form_row(form.termsAccepted)}}
+			{{ form_row(form.submit)}}
+		{{ form_end(form) }}
+		
+	</div>
+
+</div>
+{% endblock %}

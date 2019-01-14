@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blokc title{% endblock %}
+
+{% block body %}
+<style>
+	//div { border: solid 1px black;}
+	#containerImg {
+		position: relative;
+		overflow: hidden; 
+	}
+    .centered:hover{
+		background-color: rgba(255, 255, 255, 0.5);
+		filter: alpha(opacity=50); /* For IE8 and earlier */
+	}
+    .centered {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		height: 100%;
+		width: 100%;
+	}
+</style>
+		
+
+		
+
+<div class="container bg-white">
+	{% if error %}
+		<div class="alert alert-danger">
+			{{ error }}
+		</div>
+	{% endif %}
+	{% if success %}
+		<div class="alert alert-success">
+			{{ success }}
+		</div>
+	{% endif %}
+	
+	{{ form_start(form) }}
+	
+	<div class="row">
+		
+		<div class="col-md-4 bg-light">
+			<div class="form-group" id="containerImg">
+				<label class="centered btn-file">
+					<div class="ml-5">
+						<kbd>Changer avatar</kbd>
+					</div>
+					<div style="display: none;">
+						{{ form_row(form.avatar, {'id': 'input_image'} ) }}
+					</div>
+				</label>
+				{% if app.user.avatar %}
+					<img src="{{avatar_directory}}/{{app.user.avatar}}" alt="..." class="img-thumbnail" id="output_image" />
+				{% else %}
+					<img src="{{default_avatar}}" alt="..." class="img-thumbnail" id="output_image" />
+				{% endif %}
+			</div>
+
+		
+<script src="/js/inputImage.js"></script>
+
+				
+			<div class="container form-group">
+				
+				{{ form_row(form.nickname, {'value' : app.user.nickname} ) }}
+				{{ form_row(form.bio) }}
+			</div>
+		</div>
+
+		<div class="col-md-4">
+			<div class="form-group">
+				{{ form_row(form.firstname) }}
+			</div>
+			<div class="form-group">
+				{{ form_row(form.lastname) }}
+			</div>
+			<div class="form-group">
+				{{ form_row(form.birthday) }}
+			</div>
+		</div>
+		
+		<div class="col-md-4">
+			{{ form_row(form.submit)}}
+			
+			<a href={{path('change_email', { 'id': app.user.id}) }} class="btn btn-dark btn-sm" role="button">Changer l'email</a>
+			<a href={{path('change_password', { 'id': app.user.id}) }} class="btn btn-dark btn-sm" role="button">Changer le mot de passe</a>
+		</div>
+			
+	</div>
+	
+	{{ form_end(form) }}
+</div>
+{% endblock %}

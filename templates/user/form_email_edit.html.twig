@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blokc title{% endblock %}
+
+{% block body %}
+<style>
+	//div { border: solid 1px black;}
+	.containerImg {
+		position: relative;
+		overflow: hidden; 
+	}
+    .centered:hover{
+		background-color: rgba(255, 255, 255, 0.5);
+		filter: alpha(opacity=50); /* For IE8 and earlier */
+	}
+    .centered {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		height: 100%;
+		width: 100%;
+	}
+</style>
+		
+
+
+<div class="container bg-white">
+
+	
+	<div class="mx-auto mw-100" style="width: 400px;">
+		{% if error %}
+			<div class="alert alert-danger">
+				{{ error }}
+			</div>
+		{% endif %}
+		{% if success %}
+			<div class="alert alert-success">
+				{{ success }}
+			</div>
+		{% endif %}
+		
+		{% if email_verification is defined %}
+			<div class="alert alert-warning">
+				{{ email_verification }}
+				<a href=''>Veuillez confirmer le changement en cliquant sur le lien qui vous a été envoyé à votre nouvelle adresse.</a>
+			</div>
+		{% endif %}
+		
+		{{ form_start(form) }}
+			{{ form_row(form.email) }}
+			{{ form_row(form.submit)}}
+		{{ form_end(form) }}
+		
+		<a href={{path('user_setting', {'id': app.user.id} ) }}>Quitter</a>
+		
+	</div>
+	
+	
+</div>
+{% endblock %}

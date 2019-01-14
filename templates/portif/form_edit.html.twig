@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{block_title}}{% endblock %}
+
+{% block body %}
+<style>
+	//div { border: solid 1px black;}
+	#output_image {
+		max-height: 400px;
+	}
+	
+	#containerImg {
+		position: relative;
+		overflow: hidden; 
+	}
+    .centered:hover{
+		background-color: rgba(255, 255, 255, 0.5);
+		filter: alpha(opacity=50); /* For IE8 and earlier */
+	}
+    .centered {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		height: 100%;
+		width: 100%;
+	}
+</style>
+
+<div class="container bg-light">
+
+	<div class="container">
+		<p><a href="{{path('user', {'id': app.user.id} )}}">< Profil</a></p>
+		<p><a href="{{path('portif', {'id': portif.id} )}}">< Portif</a></p>
+	</div>
+	
+	<div class="container bg-white p-3">
+		{% if success %}
+			<div class="alert alert-success">
+				{{ success }}
+			</div>
+		{% endif %}
+		
+	{{ form_start(form) }}
+	
+		<div class="form-group">
+			{{ form_row(form.name) }}
+		</div>
+		
+		<div class="form-group">
+			{{ form_row(form.about) }}
+		</div>
+			
+		<div class="form-group">
+		{{form_row(form.illustration_activated, {'id': 'input_bool'})}}
+		</div>
+		
+		<div class="form-group" id="containerImg" {% if portif.illustrationActivated == false %} style="display: none;" {% endif %}>
+			<label class="centered btn-file">
+				<div class="ml-5">
+					<kbd>Changer Image du portif</kbd>
+				</div>
+				<div style="display: none;">
+					{{ form_row(form.illustration, {'id': 'input_image'} ) }}
+				</div>
+			</label>
+			
+			{% if portif.illustration %}
+				<img src="{{illustration_directory}}/{{portif.illustration}}" alt="{{portif.name}}" class="img-fluid" id="output_image" />
+			{% else %}
+				<img src="/default_illustration.jpg" alt="default-illustration" class="img-thumbnail" id="output_image" />
+			{% endif %}
+			
+		</div>
+				
+<script src="/js/inputImage.js"></script>
+<script src="/js/hideInputImage.js"></script>
+	
+
+</script>
+
+				
+		{{ form_row(form.submit)}}
+		
+		<a href="{{path('portif_delete', {'id': portif.id })}}" class="btn btn-danger btn-sm" role="button">Supprimer ce portif</a>
+	
+	{{ form_end(form) }}
+		
+	</div>
+
+</div>
+{% endblock %}

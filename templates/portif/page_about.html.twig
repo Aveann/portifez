@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{block_title}}{% endblock %}
+
+{% block body %}
+<style>
+	//div { border: solid 1px black;}
+</style>
+
+
+
+
+<div class="container-fluid bg-white">
+
+	{% include '/portif/portif_head.html' %}
+	
+	<div class="container p-5">
+		
+
+		<p>
+		{{portif.about}}
+		</p>
+
+	</div>
+</div>
+{% endblock %}

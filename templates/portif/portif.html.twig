@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{block_title}}{% endblock %}
+
+{% block body %}
+<style>
+	//div { border: solid 1px black;}
+</style>
+
+
+
+
+<div class="container-fluid bg-white">
+
+	{% include '/portif/portif_head.html' %}
+	
+	<div class="container">
+		
+		{% if posts|length > 0 %} 
+			{% for post in posts %}
+				<div class="container bg-light mt-3 mb-5 p-3 border-top border-bottom">
+					<div class="container">
+						{% if post.portif.user == app.user %}
+						<div class="col-md-6">
+							
+							<a href="{{path('post_edit', {'portif_id': portif.id, 'id': post.id})}}" class="btn btn-sm btn-outline-dark">Edit</a>
+							
+						</div>
+						{% endif %}
+						
+						<h2>{{post.title}}</h2>
+						<span>Ajouté le {{post.created|date('d-m-Y H:i')}}</span>
+						
+					</div>
+
+					
+					{% if post.img %}
+
+					<div class="container">
+						<img style="max-height: 500px;" class="img-fluid border border-dark rounded" src="{{img_directory}}/{{post.img}}" alt="{{post.img}}">
+					</div>
+					
+					{% endif %}
+					
+					<div class="container p-5">
+						<p class="text-justify">
+						{{post.content}}
+						</p>
+					</div>
+					
+					<div class="container">
+						<div class="row">
+							<div class="col-md-6">
+								<a class="btn btn-sm btn-dark" role="button" href="#">Aimer</a>
+								<a class="btn btn-sm btn-dark" role="button" href="#">Commentaire</a>
+							</div>
+							<div class="col-md-6">
+								
+								<a class="btn btn-sm btn-dark" role="button" href="#">Partage</a>
+								<a class="btn btn-sm btn-dark" role="button" href="#">Signaler</a>
+								
+							</div>
+						</div>
+						
+					</div>
+					
+					
+					
+				</div>
+			{% endfor %}
+		
+		{% else %}
+			
+			<div class="container">
+				<p>C'est plutôt vide pour l'instant...</p>
+			</div>
+		{% endif %}
+
+	</div>
+</div>
+{% endblock %}

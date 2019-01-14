@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{block_title}}{% endblock %}
+
+{% block body %}
+<style>
+	//div { border: solid 1px black;}
+</style>
+
+<div class="container bg-light">
+
+	<div class="container">
+		<a href={{path('portif', {'id' : portif.id} ) }}><- Revenir à mon portif</a>
+		{% if error %}
+			<div class="alert alert-danger">
+				{{ error }}
+			</div>
+		{% endif %}
+		{% if success %}
+			<div class="alert alert-success">
+				{{ success }}
+			</div>
+		{% endif %}
+		
+		{{ form_start(form) }}
+		
+		<div class="row">
+			<div class="col-md-7">
+			
+				{{ form_row(form.title) }}
+			</div>	
+			<div class="col-md-5">
+				{{ form_row(form.img) }}
+			</div>	
+		</div>
+		
+			{{ form_row(form.content) }}
+			
+			
+			
+			
+			{{ form_row(form.submit)}}
+		{{ form_end(form) }}
+		
+	</div>
+
+</div>
+{% endblock %}

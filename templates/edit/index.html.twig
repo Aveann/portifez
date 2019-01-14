@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blokc title{% endblock %}
+
+{% block body %}
+<style>
+	//div { border: solid 1px black;}
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<a class="navbar-brand" href="#">Espace Administrateur</a>
+	<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+		<div class="navbar-nav">
+			<a class="nav-item nav-link active" href="#">Postes <span class="sr-only">(current)</span></a>
+			<a class="nav-item nav-link active" href="#">Paramètres du portif<span class="sr-only">(current)</span></a>
+			<a class="nav-item nav-link active" href="#">Voir version visiteur<span class="sr-only">(current)</span></a>
+		</div>
+	</div>
+</nav>
+		
+
+
+<div class="container">
+
+
+
+
+	<div class="container">
+
+		
+		<div class="container">
+			<form class="form-inline">
+				<div class="form-group">
+				<label for="namePortif">Nom du site</label>
+				<input type="name" class="form-control" id="namePortif"  placeholder="Saisir Nom" value="{{portif.name}}">
+				</div>
+				<button type="submit" class="btn btn-primary">Changer le nom</button>
+			</form>
+		</div>
+		
+		
+		<div class="container">
+			
+			
+			<nav class="navbar navbar-light bg-light justify-content-between">
+				<button type="button" class="btn btn-outline-secondary">Ajouter un post</button>
+				<form class="form-inline">
+					<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+				</form>
+			</nav>
+			
+			{% if posts %}
+
+				{% for post in posts %}
+					<div class="row">
+						<div class="col-md-3">
+							<img src="/{{post.img}}" class="img-fluid" alt="{{post.img}}">
+						</div>
+						
+						<div class="col-md-6">
+							<div>
+								<p class="font-weight-bold">{{post.title}}</p>
+							</div>
+							<div>
+								<p>{{post.content|slice(0, 150)}}...</p>
+							</div>
+						</div>
+						
+						<div class="col-md-3">
+							<div class="row">
+								<div "col-sm-6">
+								<span>Créer le : {{post.created|date('d-m-Y H:i:s')}}</span>
+								</div>
+								<div "col-sm-6">
+								<span>Dernière modification : {{post.updated|date('d-m-Y H:i:s')}} </span>
+								</div>
+							</div>
+							<div>
+								<button type="button" class="btn btn-secondary btn-sm">Modifier</button>
+								<button type="button" class="btn btn-danger btn-sm">Supprimer</button>
+							</div>
+						</div>
+						
+					</div>
+				{% endfor %}
+			
+			{% else %}
+				
+				<div>
+					<p> Pas de post, ajoutez-en un maintenant!</p>
+				</div>
+			{% endif %}
+			
+		</div>
+		
+		
+		<div class="container">
+			<form>
+			<div class="form-group">
+				<label for="about">A propos:</label>
+				<textarea class="form-control" rows="5" id="comment">{{portif.about}}</textarea>
+			</div>
+			<button type="submit" class="btn btn-primary">Enregistrer "A propos"</button>
+			</form>
+		</div>
+
+
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+<div>
+
+	<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+		<div class="navbar-nav">
+		
+			<a class="navbar-brand" href="/"><img src="/icone.png" width="40" height="40" alt="icone site"></a>
+
+	  
+			<a class="nav-item nav-link active" href={{path('home')}}>Accueil <span class="sr-only">(current)</span></a>
+			
+			<form class="form-inline">
+				<input class="form-control mr-sm-2" type="search" placeholder="Recherche" aria-label="Recherche">
+				<button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Recherche</button>
+			</form>
+			
+			{% if app.user %}
+				<a class="nav-item nav-link justify-content-end active" href={{ path('user', {'id': app.user.id}) }}>Mon espace</a>
+				<a class="nav-item nav-link justify-content-end active" href="#">Notification</a>
+				<a class="nav-item nav-link justify-content-end active" href={{ path('logout') }}>Déconnexion</a>
+			{% else %}
+				<a class="nav-item nav-link justify-content-end active" href={{ path('login') }}>Connexion</a>
+				<a class="nav-item nav-link justify-content-end active" href={{ path('register') }}>Inscription</a>
+			{% endif %}
+		</div>
+		
+	</nav>
+</div>

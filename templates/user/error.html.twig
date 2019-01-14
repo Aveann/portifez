@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blokc title{% endblock %}
+
+{% block body %}
+<style>
+	//div { border: solid 1px black;}
+</style>
+
+<div class="container bg-white">
+
+	<div class="container" style="height: 700px;">
+		<div class="row" >
+			<div class="col-md-3 bg-light" style="height: 400px;">
+				<img src="{{default_avatar}}" alt="..." class="img-thumbnail">
+			</div>
+			
+			<div class="col-md-9">
+				<div class="alert alert-dark" role="alert">
+					Cet utilisateur n'existe pas
+				</div>
+			</div>
+		</div>
+		<hr>
+	</div>
+	
+</div>
+
+{% endblock %}

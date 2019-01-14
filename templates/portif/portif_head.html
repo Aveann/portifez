@@ -1,0 +1,50 @@
+{% if portif.user.id == app.user.id %}
+<div class="container">
+	<nav class="nav navbar-light" style="background-color: #e6e6e6;">
+		<a class="nav-link" href="{{path('post_add', {'portif_id': portif.id})}}">Ajouter un poste</a>
+		<a class="nav-link" href="{{path('post_list', {'portif_id': portif.id})}}">Listes des postes</a>
+		<a class="nav-link" href="{{path('portif_edit', {'id': portif.id})}}">Paramètres</a>
+	</nav>
+</div>
+{% endif %}
+
+
+<div class="container" style="max-height: 450px; overflow: hidden; display: flex; justify-content: center; align-items: center; position: relative;">
+{% if portif.illustrationActivated %}
+	{% if portif.illustration %}
+	<img src="{{illustration_directory}}/{{portif.illustration}}" class="img-responsive w-100" style="flex-shrink: 0;" alt="{{portif.name}}">
+	{% else %}
+	<img src="{{default_illustration}}" class="img-responsive w-100" style="flex-shrink: 0;" alt="{{portif.name}}">
+	{% endif %}
+	
+	<div style="cursor: pointer; position: absolute; left: 0px; bottom: 0px; width: 15%;" onclick="location.href='{{path('user', {'id': portif.user.id} )}}'" >
+		
+{% else %}
+	<div style="cursor: pointer; width: 15%;" onclick="location.href='{{path('user', {'id': portif.user.id} )}}'" >
+{% endif %}
+
+
+		<span class="badge badge-light" style="position: absolute;">{{portif.user.nickname}}</span>
+		
+	{% if portif.user.avatar %}
+		<img src="{{avatar_directory}}/{{portif.user.avatar}}" class="img-fluid" alt="{{portif.user.nickname}}" >
+	{% else %}
+		<img src="{{default_avatar}}" class="img-fluid" alt="{{portif.user.nickname}}" style="position: absolute; right: 0px; bottom: 0px;">
+	{% endif %}
+	
+	</div>
+	
+	
+	
+	
+</div>
+
+<div class="container p-3">
+	<h1 class="display-4"><a href="{{path('portif', {'id': portif.id} )}}" style="text-decoration: none;">{{portif.name}}</a></h1>
+</div>
+
+<nav class="nav justify-content-center mb-3 p-2 border-bottom border-top">
+	<a class="nav-link" href="{{path('portif', {'id': portif.id})}}">Accueil</a>
+	<a class="nav-link" href="#">Posts</a>
+	<a class="nav-link" href="{{path('portif_about', {'id': portif.id})}}">A propos</a>
+</nav>
