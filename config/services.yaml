@@ -4,7 +4,18 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: 'en'
+    locale: 'fr'
+    avatar_directory: '%kernel.project_dir%/public/uploads/user_avatar'
+    illustration_directory: '%kernel.project_dir%/public/uploads/portif_illustration'
+    img_directory: '%kernel.project_dir%/public/uploads/post_img'
+    
+twig:
+    globals:
+        avatar_directory: '/uploads/user_avatar'
+        illustration_directory: '/uploads/portif_illustration'
+        img_directory: '/uploads/post_img'
+        default_illustration: '/default_illustration.jpg'
+        default_avatar: '/default_avatar.png'
 
 services:
     # default configuration for services in *this* file
@@ -29,3 +40,9 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    app.doctrine.userListener:
+        class: App\Doctrine\UserListener
+        arguments: ["@security.encoder_factory"]
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }
