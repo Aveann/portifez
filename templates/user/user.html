@@ -16,9 +16,9 @@
 	{% endif %}
 		
 		<div class="row">
-			<div class="col-md-4 bg-light">
+			<div class="col-md-4 bg-light" >
 			{% if user.avatar %}
-				<img src="{{avatar_directory}}/{{user.avatar}}" alt="{{user.nickname}}" class="img-thumbnail">
+				<img src="{{avatar_directory}}/{{user.avatar}}" alt="{{user.nickname}}" style="width: 200px; height: 200px; object-fit: cover" class="img-thumbnail">
 			{% else %}
 				<img src="{{default_avatar}}" alt="{{user.nickname}}" class="img-thumbnail">
 			{% endif %}
@@ -59,7 +59,7 @@
 		
 			<div class="col-md-3">
 			{% if portif.illustration %}
-				<img src="{{illustration_directory}}/{{portif.illustration}}" class="img-thumbnail alt="{{portif.name}}" />
+				<img  src="{{illustration_directory}}/{{portif.illustration}}" class="img-thumbnail alt="{{portif.name}}" />
 			{% else %}
 				<img src="{{default_illustration}}" class="img-thumbnail alt="{{portif.name}}" />
 			{% endif %}
