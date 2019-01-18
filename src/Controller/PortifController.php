@@ -86,7 +86,7 @@ class PortifController extends AbstractController
         $form = $this->createForm(PortifAddForm::class, $portif, 
 			['action' => $this->generateUrl('portif_add')]
 		);
-
+		
         $form->handleRequest($request);
 		
         if ($form->isSubmitted() && $form->isValid()) {
@@ -102,7 +102,6 @@ class PortifController extends AbstractController
 					$illustration = $form->get('illustration')->getData();
 					$illustrationName = $fileUploader->upload($illustration);
 					$portif->setIllustration($illustrationName);
-				
 				}
 			
 			} else {

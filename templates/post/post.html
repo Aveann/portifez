@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<style>
+   div { border: solid 1px black;}
+</style>
+
+
+<div class="container-fluid bg-white pb-3">
+
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<div style="cursor: pointer; width: 100px;" onclick="location.href='{{path('user', {'id': portif.user.id} )}}'" >
+					<span class="badge badge-light" style="position: absolute;">{{portif.user.nickname}}</span>
+					
+				{% if portif.user.avatar %}
+					<img src="{{avatar_directory}}/{{portif.user.avatar}}" class="img-fluid" alt="{{portif.user.nickname}}" >
+				{% else %}
+					<img src="{{default_avatar}}" class="img-fluid" alt="{{portif.user.nickname}}">
+				{% endif %}
+					
+				</div>
+			</div>
+			<div class="col">
+				le portif
+			</div>
+		</div>
+		<span>Ajouté le {{post.created|date('d-m-Y H:i')}}</span>
+		<div>
+			{{post.content}}
+		</div>
+		
+		<div >
+			les actions
+		</div>
+		
+		<div >
+			les commentaires
+		</div>
+
+	</div>
+</div>
+{% endblock %}

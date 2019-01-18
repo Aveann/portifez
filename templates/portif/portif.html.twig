@@ -28,7 +28,7 @@
 						</div>
 						{% endif %}
 						
-						<h2>{{post.title}}</h2>
+						<h2><a style="text-decoration: none" href="{{path('post', {'portif_id': portif.id, 'id': post.id})}}">{{post.title}}</a></h2>
 						<span>Ajouté le {{post.created|date('d-m-Y H:i')}}</span>
 						
 					</div>

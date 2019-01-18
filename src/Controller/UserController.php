@@ -16,7 +16,7 @@ use App\Entity\Portif;
 
 use App\Form\UserEmailEditForm;
 use App\Form\UserPasswordEditForm;
-use App\Form\UserSettingForm;
+use App\Form\UserEditForm;
 
 use App\Service\FileUploader;
 
@@ -48,6 +48,7 @@ class UserController extends AbstractController
     }
 	
     /**
+	 * 
      * @Route("/user/{id}", name="user")
      */
     public function index($id)
@@ -60,7 +61,7 @@ class UserController extends AbstractController
 			$repository = $this->getDoctrine()->getRepository(Portif::class);
 			$portifs = $repository->findBy(['user' => $id]);
 		
-			return $this->render('user/user.html.twig', [
+			return $this->render('user/user.html', [
 				'portifs' => $portifs,
 				'isUserProfile' => $this->isUserProfile($id),
 				'user' => $user,
@@ -74,14 +75,14 @@ class UserController extends AbstractController
     }
 	
 	/**
-     * @Route("/user/{id}/setting", name="user_setting")
+     * @Route("/user/{id}/edit", name="user_edit")
      */
-    public function user_setting(Request $request, $id)
+    public function user_edit(Request $request, $id)
     {
 		$error = "";
 		$success = "";
 		
-		//si un utilisateur tente d'accéder à la route "user_setting" pour un
+		//si un utilisateur tente d'accéder à la route "user_edit" pour un
 		//utilisateur autre que lui même
 		if (!$this->isUserProfile($id)) {
 			throw new AccessDeniedException('Oups... Impossible d\'accéder à cette page.');
@@ -89,9 +90,9 @@ class UserController extends AbstractController
 			$user = $this->getUser();
 			
 			$avatarName = $user->getAvatar();
-			$form = $this->createForm(UserSettingForm::class, $user, 
+			$form = $this->createForm(UserEditForm::class, $user, 
 				array(
-					'action' => $this->generateUrl('user_setting', ['id' => $user->getId()]),
+					'action' => $this->generateUrl('user_edit', ['id' => $user->getId()]),
 					'method' => 'PATCH'
 				)
 			);
@@ -107,6 +108,8 @@ class UserController extends AbstractController
 					$avatar = $form->get('avatar')->getData();
 					$avatarName = $fileUploader->upload($avatar);
 				
+				} else {
+					$avatarName = "";
 				}
 				
 				$user->setAvatar($avatarName);
@@ -118,7 +121,7 @@ class UserController extends AbstractController
 			}
 		}
 		
-        return $this->render('user/form_user_edit.html.twig', [
+        return $this->render('user/form_user_edit.html', [
 			'block_title' => 'Paramètre utilisateur',
 			'form' => $form->createView(),
 			'error' => $error,
@@ -134,7 +137,7 @@ class UserController extends AbstractController
 		$error = "";
 		$success = "";
 		
-		//si un utilisateur tente d'accéder à la route "user_setting" pour un
+		//si un utilisateur tente de modifier des infos pour un
 		//utilisateur autre que lui même
 		if (!$this->isUserProfile($id)) {
 			throw new AccessDeniedException('Unable to access this page!');

@@ -16,8 +16,7 @@ class HomeController extends AbstractController
 		$msg = "Wesh ceci est la page d'accueil gros";
 
         return $this->render('home/index.html.twig', [
-			'msg' => $msg,
-			'portif' => $portif,
+			'msg' => $msg
         ]);
     }
 }

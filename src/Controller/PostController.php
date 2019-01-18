@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 use App\Entity\Post;
 use App\Entity\Portif;
+use App\Entity\User;
 
 use App\Form\PostAddForm;
 use App\Form\PostEditForm;
@@ -24,7 +25,7 @@ class PostController extends AbstractController
 	/**
      * @Route("/portif/{portif_id}/post/{id}", name="post")
      */
-    public function post(Request $request, $id)
+    public function post(Request $request, $portif_id, $id)
     {
 		$post = $this->getDoctrine()
 				->getRepository(Post::class)
@@ -33,9 +34,17 @@ class PostController extends AbstractController
 		$portif = $this->getDoctrine()
 			->getRepository(Portif::class)
 			->find($portif_id);
+		
+		$user = $this->getDoctrine()
+			->getRepository(User::class)
+			->find($portif->getUser());
+			//var_dump($portif->getUser()->getId());
 			
-        return $this->render('post/post.html.twig', [
-			'block_title' => 'Ajouter un portif',
+        return $this->render('post/post.html', [
+			'block_title'	=> $post->getTitle(),
+			'portif'		=> $portif,
+			'post'			=> $post,
+			'user'			=> $user,
 			
         ]);
     } 

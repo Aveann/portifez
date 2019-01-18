@@ -3,6 +3,7 @@
 {% block title %}Blokc title{% endblock %}
 
 {% block body %}
+
 <style>
 	//div { border: solid 1px black;}
 	#containerImg {
@@ -43,23 +44,35 @@
 	<div class="row">
 		
 		<div class="col-md-4 bg-light">
-			<div class="form-group" id="containerImg">
-				<label class="centered btn-file">
-					<div class="ml-5">
-						<kbd>Changer avatar</kbd>
-					</div>
-					<div style="display: none;">
-						{{ form_row(form.avatar, {'id': 'input_image'} ) }}
-					</div>
-				</label>
-				{% if app.user.avatar %}
-					<img src="{{avatar_directory}}/{{app.user.avatar}}" alt="..." class="img-thumbnail" id="output_image" />
-				{% else %}
-					<img src="{{default_avatar}}" alt="..." class="img-thumbnail" id="output_image" />
-				{% endif %}
+			<div class="form-group">
+				<div id="containerImg">
+					<label class="centered btn-file">
+						<div class="ml-5">
+							<kbd>Changer avatar</kbd>
+						</div>
+						<div style="display: none;">
+							{{ form_row(form.avatar, {'id': 'input_image'} ) }}
+						</div>
+					</label>
+					{% if app.user.avatar %}
+						<img src="{{avatar_directory}}/{{app.user.avatar}}" alt="..." class="img-thumbnail" id="output_image" />
+					{% else %}
+						<img src="{{default_avatar}}" alt="..." class="img-thumbnail" id="output_image" />
+					{% endif %}
+				</div>
+				<div><a id="clearField" role="button" class="btn btn-outline-dark btn-sm">Aucune image</a></div>
 			</div>
 
-		
+<script>
+document.getElementById("clearField").onclick = function() {clearFile(event)};
+var clearFile = function(event) {
+
+		var output = document.getElementById('output_image');
+		output.src = "{{default_avatar}}";
+		document.getElementById("input_image").value = "";
+};
+
+</script>		
 <script src="/js/inputImage.js"></script>
 
 				
@@ -93,4 +106,5 @@
 	
 	{{ form_end(form) }}
 </div>
+
 {% endblock %}
